@@ -1,0 +1,12 @@
+<div>
+  <h2>Edit This Event</h2>
+  <form action="/edit/<%= @event.id %>" method="POST">
+     <label>Event Name: <input type="text" name="event_name" value="<%=@event.name %>"></label>
+     <label>Event Location: <input type="text" name="event_location" value="<%= @event.location %>"></label>
+     <label>Date: <input type="text" name="date" placeholder="Example: 30 September 2013" value="<%= @event.starts_at.strftime("%d %B %Y") %>"></label>
+     <label>Starts At: <input type="text" name="starts_at" value="<%= @event.starts_at.strftime('%l:%M %p') %>"></label>
+     <label>Ends At: <input type="text" name="ends_at" value="<%= @event.ends_at.strftime('%l:%M %p') %>"></label>
+     <br>
+     <input type="submit" value="Submit Changes">
+  </form>
+</div>
