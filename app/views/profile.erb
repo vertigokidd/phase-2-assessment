@@ -3,3 +3,19 @@ Your Profile
 <form action='/logout' method='GET'>
   <button type='submit'>Log Out</button>
 </form>
+
+<a href="/create">Create a New Event</a>
+
+Your Events
+<ul>
+<% @user.created_events.each do |event| %> 
+  <li><%= event.name %>: 
+  	  <%= event.location %>
+  	  <%= event.starts_at.asctime %>
+      <a href="/edit/<%= event.id %>">Edit</a>
+  	  <form action='/destroy/<%= event.id %>' method="POST">
+  	    <button>Delete Event</button>
+      </form>
+  </li>
+<% end %>
+<ul>

@@ -1,3 +1,5 @@
+enable :sessions
+
 # GET ====================================
 
 
@@ -12,7 +14,12 @@ get '/user/:user_id' do
 end
 
 get '/logout' do
+  session.clear
   redirect '/'
+end
+
+get '/create' do
+  erb :create
 end
 
 
@@ -31,6 +38,7 @@ post '/signup' do
   	                 birthdate: birthdate,
   	                 password: password 
   	                 )
+  session[:user_id] = user.id
   redirect "/user/#{user.id}"
 end
 
@@ -39,8 +47,35 @@ post '/login' do
   password = params[:password]
   user = User.find_by_email(email)
   if user.password == password
+  	session[:user_id] = user.id
   	redirect "/user/#{user.id}"
   else
     redirect '/'
   end
 end
+
+post '/create' do
+  event_name = params[:event_name]
+  event_location = params[:event_location]
+  date = params[:date].to_date
+  starts_at = Time.parse("#{date} #{params[:starts_at]}")
+  ends_at = Time.parse("#{date} #{params[:ends_at]}")
+  user = User.find(session[:user_id])
+  user.created_events.create(name: event_name,
+  	                 location: event_location,
+                     starts_at: starts_at,
+                     ends_at: ends_at
+  	                 )
+  redirect "/user/#{user.id}"
+end
+
+post '/destroy/:event_id' do
+  event_id = params[:event_id]
+  event = Event.find(event_id)
+  event.destroy
+  redirect "/user/#{session[:user_id]}"
+end
+
+
+
+

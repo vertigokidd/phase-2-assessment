@@ -1,5 +1,4 @@
 class User < ActiveRecord::Base
-  has_many :events
   has_many :event_attendances
   has_many :created_events, class_name: "Event", foreign_key: :user_id
   has_many :attended_events, through: :event_attendances, source: :event

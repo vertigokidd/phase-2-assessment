@@ -12,7 +12,7 @@ users = 50.times.map do
               :birthdate  => Date.today - 15.years - rand(20000).days
 end
 
-events = 100.times.map do
+events = 200.times.map do
   start_time = Time.now + (rand(61) - 30).days
   end_time   = start_time + (1 + rand(6)).hours
 
