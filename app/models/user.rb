@@ -1,7 +1,9 @@
 class User < ActiveRecord::Base
 
   validates :email, uniqueness: true, presence: true
+  
 
+  validate :valid_email, on: :create
 
   include BCrypt 
 
@@ -15,7 +17,7 @@ class User < ActiveRecord::Base
   end
 
   def valid_email
-
+    errors.add(:email, "Not a valid email") unless email.match(/\w+@\w+\.\w{2,7}/)
   end
 
 end
