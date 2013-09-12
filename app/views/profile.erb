@@ -4,10 +4,27 @@ Your Profile
   <button type='submit'>Log Out</button>
 </form>
 
-<a href="/create">Create a New Event</a>
+<input id="userId" type="hidden" name="user_id" value="<%= session[:user_id] %>">
 
+<a id="createButton" href="/create">Create a New Event</a>
+<div id="createForm" hidden="true">
+  <div>
+  <h2>Create A New Event</h2>
+  <form id="createEvent" action="/create" method="POST">
+     <label>Event Name: <input type="text" name="event_name"></label>
+     <label>Event Location: <input type="text" name="event_location"></label>
+     <label>Date: <input type="text" name="date" placeholder="Example: 30 September 2013"></label>
+     <label>Starts At: <input type="text" name="starts_at" placeholder="Example: 4:00 pm"></label>
+     <label>Ends At: <input type="text" name="ends_at" placeholder="Example: 8:00 pm"></label>
+     <br>
+     <button type="submit">Create Event</button>
+  </form>
+</div>
+</div>
+
+<div>
 Your Events
-<ul>
+<ul id="eventsList">
 <% @user.created_events.each do |event| %> 
   <li><%= event.name %>: 
   	  <%= event.location %>
@@ -19,3 +36,4 @@ Your Events
   </li>
 <% end %>
 <ul>
+</div>

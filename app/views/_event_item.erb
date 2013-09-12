@@ -1,0 +1,8 @@
+<li><%= @event.name %>: 
+  	  <%= @event.location %>
+  	  <%= @event.starts_at.asctime %>
+      <a href="/edit/<%= @event.id %>">Edit</a>
+  	  <form action='/destroy/<%= @event.id %>' method="POST">
+  	    <button>Delete Event</button>
+      </form>
+  </li>

@@ -14,7 +14,11 @@ get '/user/:user_id' do
 end
 
 get '/create' do
-  erb :create
+  if request.xhr?
+    erb :create, layout: false
+  else
+  	erb :create
+  end
 end
 
 get '/edit/:event_id' do
@@ -68,12 +72,17 @@ post '/create' do
   starts_at = Time.parse("#{date} #{params[:starts_at]}")
   ends_at = Time.parse("#{date} #{params[:ends_at]}")
   user = User.find(session[:user_id])
-  user.created_events.create(name: event_name,
+  @event = user.created_events.create(name: event_name,
   	                 location: event_location,
                      starts_at: starts_at,
                      ends_at: ends_at
   	                 )
-  redirect "/user/#{user.id}"
+  if request.xhr?
+  	@event
+    erb :_event_item, layout: false
+  else
+    redirect "/user/#{user.id}"
+  end
 end
 
 post '/edit/:event_id' do
