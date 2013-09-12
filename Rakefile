@@ -89,13 +89,13 @@ namespace :db do
   desc "Create the database at #{DB_NAME}"
   task :create do
     puts "Creating database #{DB_NAME} if it doesn't exist..."
-    exec("touch #{DB_NAME}")
+    system("touch #{DB_NAME}")
   end
 
   desc "Drop the database at #{DB_NAME}"
   task :drop do
     puts "Dropping database #{DB_NAME}..."
-    exec("rm #{DB_NAME}")
+    system("rm #{DB_NAME}")
   end
 
   desc "Migrate the database (options: VERSION=x, VERBOSE=false, SCOPE=blog)."
@@ -122,6 +122,9 @@ desc 'Start IRB with application environment loaded'
 task "console" do
   exec "irb -r./config/environment"
 end
+
+desc "Drop, Create, Migrate and Seed"
+task 'funky' => [ "db:drop", "db:create", "db:migrate", "db:seed" ]
 
 desc "Run the specs"
 RSpec::Core::RakeTask.new(:spec)
