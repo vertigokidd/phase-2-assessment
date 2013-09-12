@@ -1,7 +1,10 @@
 <div id="signup" class="column">
     <h2>Sign up</h2>
     <form action="/signup" method="POST">
+       <label>First Name: <input type="text" name="first_name"></label>
+       <label>Last Name: <input type="text" name="last_name"></label>
        <label>Email: <input type="text" name="email"></label>
+       <label>Birthdate: <input type="text" name="birthdate" placeholder='Example: 28 January 1981'></label>
        <label>Password: <input type="password" name="password"></label>
        <br>
        <input type="submit" value="Create account">
